@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack", "BlackJack\BlackJack.csproj", "{94F0422D-8044-46D7-8806-0A597F4E3B55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackjackTest", "BlackjackTest\BlackjackTest.csproj", "{BB8933BD-7119-43F3-8B02-44F3EC6F1A0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,5 +15,9 @@ Global
 		{94F0422D-8044-46D7-8806-0A597F4E3B55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94F0422D-8044-46D7-8806-0A597F4E3B55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94F0422D-8044-46D7-8806-0A597F4E3B55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB8933BD-7119-43F3-8B02-44F3EC6F1A0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB8933BD-7119-43F3-8B02-44F3EC6F1A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB8933BD-7119-43F3-8B02-44F3EC6F1A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB8933BD-7119-43F3-8B02-44F3EC6F1A0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
