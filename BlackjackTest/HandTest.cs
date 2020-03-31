@@ -9,7 +9,7 @@ namespace BlackjackTest
     public class HandTest
     {
         [TestMethod]
-        public void GetScoreNormalTest()
+        public void Score_NormalHand()
         {
             var hand = new Hand();
             var cards = new List<Card>()
@@ -25,7 +25,7 @@ namespace BlackjackTest
         }
 
         [TestMethod]
-        public void GetScoreKJQTest()
+        public void Socre_HandWithKingQueenJack()
         {
             var hand = new Hand();
             var cards = new List<Card>()
@@ -44,7 +44,7 @@ namespace BlackjackTest
         /// case of Ace = 11
         /// </summary>
         [TestMethod]
-        public void GetScoreAce11Test()
+        public void Socre_HandWithAceAs11()
         {
             var hand = new Hand();
             var cards = new List<Card>()
@@ -63,7 +63,7 @@ namespace BlackjackTest
         /// case of Ace = 1
         /// </summary>
         [TestMethod]
-        public void GetScoreAce1Test()
+        public void Socre_HandWithAceAs1()
         {
             var hand = new Hand();
             var cards = new List<Card>()
@@ -82,7 +82,7 @@ namespace BlackjackTest
         /// case of Ace = 1 and 11
         /// </summary>
         [TestMethod]
-        public void GetScoreAce1and11Test()
+        public void Socre_HandWithAceAs1And11()
         {
             var hand = new Hand();
             var cards = new List<Card>()
@@ -101,7 +101,7 @@ namespace BlackjackTest
         /// case of hand Ace only 
         /// </summary>
         [TestMethod]
-        public void GetScoreAceOnlyTest()
+        public void Socre_HandWithOnlyAce()
         {
             var hand = new Hand();
             var cards = new List<Card>()
