@@ -10,13 +10,18 @@ namespace BlackJack
         private Hand PlayerHand;
         private Hand DealerHand;
         private bool quit;
-        private bool stand;
 
         public enum ResultE
         {
             win,
             lose,
             draw
+        }
+
+        public enum Playing
+        {
+            hit,
+            stand
         }
 
         public GameMain()
@@ -29,30 +34,17 @@ namespace BlackJack
             {
                 Deck = CreateDeck();
 
-                PlayerHand = InitPlayerHand(Deck);
                 DealerHand = InitdealerHand(Deck);
+                PlayerHand = InitPlayerHand(Deck);
 
-                bool playerHit = PlayerIsHit();
-                bool dealerHit = DealerIsHit();
 
-                while(playerHit || dealerHit)
+                Playing dealerPlayed = PlayDealer(DealerHand, Deck);
+                Playing playerPlayed = PlayPlayer(PlayerHand, Deck);
+
+                while(dealerPlayed == Playing.hit|| playerPlayed == Playing.hit)
                 {
-                    if(playerHit)
-                    {
-                        PlayerHit(Deck);
-                    }
-
-                    if(dealerHit)
-                    {
-                        DealerHit(Deck);
-                    }
-
-                    if(playerHit)
-                    {
-                        playerHit = PlayerIsHit();
-                    }
-                    
-                    dealerHit = DealerIsHit();
+                    dealerPlayed = PlayDealer(DealerHand, Deck);
+                    playerPlayed = PlayPlayer(PlayerHand, Deck);
                 }
 
                 Result();
@@ -139,54 +131,106 @@ namespace BlackJack
             }
         }
 
-        private void DealerHit(List<Card> deck)
+        private Playing PlayPlayer(Hand hand, List<Card> deck)
         {
-            Console.WriteLine("dealer's hit...??");
-            var card = Draw(DealerHand, deck);
-            Console.Write("dealer's hand...");
-            var hand = DealerHand.Cards.First().DisplayName + "," +
-                string.Join(",", DealerHand.Cards.Skip(1).Select(x => "??"));
-            Console.WriteLine(hand);
-        }
-
-        private void PlayerHit(List<Card> deck)
-        {
-            Console.Write("player's hit...");
-            var card = Draw(PlayerHand, deck);
-            Console.WriteLine(card.DisplayName);
-            Console.Write("player's hand...");
-            var hand = string.Join(",",PlayerHand.Cards.Select(x => x.DisplayName));
-            Console.WriteLine(hand);
-
-        }
-
-        private bool DealerIsHit()
-        {
-            var score = DealerHand.GetScore(DealerHand.Cards);
-            if(score < 17)
+            if(deck.Count == 0)
             {
-                return true;
+                return Playing.stand;
+            }
+
+            Playing playing = GetPlayerPlaying();
+
+            if(playing == Playing.hit)
+            {
+                var card = Draw(hand, deck);
+                ShowPlayerDrawCard(card);
             }
             else
             {
-                return false;
+                return Playing.stand;
             }
+
+            ShowPlayerHand(hand);
+
+            return playing;
         }
 
-        private bool PlayerIsHit()
+        private Playing GetPlayerPlaying()
         {
             Console.Write("do you hit? hit:1 stand:others key ->");
             var key = Console.ReadKey();
             Console.WriteLine("");
             if (key.KeyChar == '1')
             {
-                return true;
+                return Playing.hit;
             }
             else
             {
-                return false;
+                return Playing.stand;
             }
-            
+        }
+
+        private void ShowPlayerDrawCard(Card card)
+        {
+            Console.Write("player draws ...");
+            Console.WriteLine(card.DisplayName);
+        }
+
+        private void ShowPlayerHand(Hand hand)
+        {
+            Console.Write("player's hand ...");
+            var cards = string.Join(",",hand.Cards.Select(x => x.DisplayName));
+            Console.WriteLine(cards);
+        }
+
+        private Playing PlayDealer(Hand hand, List<Card> deck)
+        {
+            if(deck.Count == 0)
+            {
+                return Playing.stand;
+            }
+
+            Playing playing = GetDealerPlaying();
+
+            if(playing == Playing.hit)
+            {
+                var card = Draw(hand, deck);
+                ShowDealerDrawCard(card);
+            }
+            else
+            {
+                return Playing.stand;
+            }
+
+            ShowDealerHand(hand);
+
+            return playing;
+        }
+
+        private Playing GetDealerPlaying()
+        {
+            var score = DealerHand.GetScore(DealerHand.Cards);
+            if(score < 17)
+            {
+                return Playing.hit;
+            }
+            else
+            {
+                return Playing.stand;
+            }
+        }
+
+        private void ShowDealerDrawCard(Card card)
+        {
+            Console.WriteLine("dealer draws ...??");
+        }
+
+        private void ShowDealerHand(Hand hand)
+        {
+            Console.Write("dealer's hand ...");
+            var cards = DealerHand.Cards.First().DisplayName + "," +
+                string.Join(",", DealerHand.Cards.Skip(1).Select(x => "??"));
+            Console.WriteLine(cards);
         }
 
         private Hand InitdealerHand(List<Card> deck)
@@ -222,7 +266,6 @@ namespace BlackJack
             Console.WriteLine("start black jack!");
             var deck = new Deck();
             return deck.CreateDeck();
-
         }
     }
 }

@@ -9,7 +9,5 @@ namespace BlackJack
             var game = new GameMain();
             game.Play();
         }
-
-
     }
 }

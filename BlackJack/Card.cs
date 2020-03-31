@@ -13,13 +13,9 @@ namespace BlackJack
     {
         public Card(Mark mark,int number)
         {
-            if(number > 13)
+            if(number > 13 || number <= 0)
             {
-                throw new Exception("トランプじゃない");
-            }
-            if(number <= 0)
-            {
-                throw new Exception("トランプじゃない");
+                throw new Exception(number + " is not playing card.");
             }
 
             MarkName = mark;
